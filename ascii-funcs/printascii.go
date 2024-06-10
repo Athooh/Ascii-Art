@@ -20,6 +20,15 @@ func ReplaceSpecChars(s string) string {
 
 // PrintAsciiArt prints the given text as ASCII art using the provided map of characters.
 func PrintAsciiArt(text string, asciiChars map[byte][]string) {
+	text = ReplaceSpecChars(text)
+	// Check if any character is outside the ASCII range (32-127)
+	for _, char := range text {
+		if char > 127 || char < 32 {
+			fmt.Printf("Error: Character %q is not accepted\n", char)
+			return
+		}
+	}
+
 	// Print each line of the ASCII art
 	for i := 0; i < 8; i++ {
 		PrintLine(text, asciiChars, i)
